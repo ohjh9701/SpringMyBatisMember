@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.member.domain.Member;
+import com.member.domain.MemberAuth;
 import com.member.mapper.MemberMapper;
 
 @Service
@@ -17,8 +18,15 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public int register(Member member) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		int count = mapper.create(member);
+		if(count > 0) {
+			MemberAuth memberAuth = new MemberAuth();
+			memberAuth.setNo(member.getNo());
+			memberAuth.setAuth("ROLE_USER");
+			mapper.createAuth(memberAuth);
+			
+		}
+		return count;
 	}
 
 	@Override
