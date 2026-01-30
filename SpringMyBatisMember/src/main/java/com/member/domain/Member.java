@@ -12,9 +12,14 @@ public class Member {
 	private String id;
 	private String pw;
 	private String name;
+	private int coin;
 	private Date regDate;
 	private Date modDate;
 	
 	private List<MemberAuth> authList;
+	
+	//검색어를 받기위한 변수선언
+	private String searchType;
+	private String keyword;
 	
 }
