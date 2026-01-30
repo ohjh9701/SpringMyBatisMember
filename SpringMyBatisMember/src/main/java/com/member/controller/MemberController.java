@@ -1,5 +1,7 @@
 package com.member.controller;
 
+import java.util.List;
+
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,39 +45,40 @@ public class MemberController {
 		return "member/failed";
 	}
 	
-//	@GetMapping("/boardlist")
-//	public String boardList(Model model) {
-//		log.info("boardlist");
-//		
-//		try {
-//			List<Board> boardList = boardService.list();
-//			
-//			model.addAttribute("boardList",boardList);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return "board/boardList";
-//	}
-//	
-//	@GetMapping("/detail")
-//	public String boardDetail(Board b, Model model) {
-//		log.info("boardDetail board = "+b.toString());
-//		
-//		try {
-//			Board board = boardService.read(b);
-//			if(board == null) {
-//				return "board/failed";
-//			}
-//			model.addAttribute("board",board);
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "board/detail";
-//	}
-//	
+	@GetMapping("/memberList")
+	public String memberList(Model model) {
+		log.info("memberList");
+		
+		try {
+			List<Member> memberList = memberService.list();
+			
+			model.addAttribute("memberList",memberList);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "member/memberList";
+	}
+	
+	@GetMapping("/detail")
+	public String memberDetail(Member member, Model model) {
+		
+		try {
+			Member m = memberService.read(member);
+			if(m == null) {
+				model.addAttribute("message", "해당 번호의 정보를 찾을 수 없습니다.");
+				return "member/failed";
+			}
+			log.info("memberDetail member = "+ m.toString());
+			model.addAttribute("member",m);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "member/detail";
+	}
+	
 //	@GetMapping("/delete")
 //	public String boardDelete(Board board, Model model) {
 //		log.info("boardDetail board = "+board.toString());
@@ -91,38 +94,40 @@ public class MemberController {
 //		return "board/success";
 //	}
 //	
-//	@GetMapping("/updateForm")
-//	public String boardUpdateForm(Board b, Model model) {
-//		log.info("updateForm board = "+b.toString());
-//		
-//		try {
-//			Board board = boardService.read(b);
-//			if(board == null) {
-//				model.addAttribute("message", "%d 님의 정보가 없습니다".formatted(b.getNo()));
-//				return "board/failed";
-//			}
-//			model.addAttribute("board", board);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return "board/updateForm";
-//	}
-//	
-//	@PostMapping("/update")
-//	public String updateBoard(Model model, Board board) {
-//		log.info("updateBoard board = "+board.toString());
-//		
-//		try {
-//			boardService.update(board);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//			model.addAttribute("message", "%d 님의 게시판이 수정되지 않았습니다.".formatted(board.getNo()));
-//			return "board/failed";
-//		}
-//		model.addAttribute("message", "%d 님의 게시판이 수정되었습니다.".formatted(board.getNo()));
-//		return "board/success";
-//	}
-//	
+	@GetMapping("/updateForm")
+	public String memberUpdateForm(Member member, Model model) {
+		log.info("updateForm board = "+member.toString());
+		
+		try {
+			Member member_ = memberService.read(member);
+			if(member_ == null) {
+				model.addAttribute("message", "%d 님의 정보가 없습니다".formatted(member.getNo()));
+				return "board/failed";
+			}
+			model.addAttribute("member", member_);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "member/updateForm";
+	}
+	
+	@PostMapping("/update")
+	public String updateMember(Model model, Member member) {
+		log.info("updateBoard board = "+member.toString());
+		
+		try {
+			int count = memberService.update(member);
+			if(count > 0) {
+				model.addAttribute("message", "%d 님의 회원정보가 수정되었습니다.".formatted(member.getNo()));
+				return "member/success";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		model.addAttribute("message", "%d 님의 회원정보가 수정되지 않았습니다.".formatted(member.getNo()));
+		return "member/failed";
+	}
+	
 //	@GetMapping("/search")
 //	public String boardSearch(Model model, Board board) {
 //		log.info("searchType = " + board.toString());

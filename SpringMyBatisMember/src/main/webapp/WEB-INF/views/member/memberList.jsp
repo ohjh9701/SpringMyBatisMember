@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>T1 Community | Board List</title>
+<title>T1 Community | Member List</title>
 <style>
     :root {
         --t1-red: #E2012D;
@@ -98,7 +98,7 @@
         color: var(--t1-red);
     }
 
-    .title-cell { text-align: left !important; padding-left: 30px !important; }
+    .title-cell { text-align: center !important; padding-left: 15px !important; }
     .title-cell a { color: inherit; text-decoration: none; font-weight: 500; }
 
     /* Pagination / Footer */
@@ -178,17 +178,16 @@
     <h1>BOARD <span>LIST</span></h1>
     
     <div class="btn-group">
-        <a href="/board/boardlist" class="btn-write">List View</a>
-        <a href="/board/insertForm" class="btn-write">New Mission</a>
+        <a href="/member/memberList" class="btn-write">List View</a>
+        <a href="/member/insertForm" class="btn-write">회원가입</a>
     </div>
 </div>
 
     <div class="search-container">
-        <form action="/board/search" method="get" class="search-form">
+        <form action="/member/search" method="get" class="search-form">
             <select name="searchType" class="search-select">
-                <option value="title">제목</option>
-                <option value="writer">작성자</option>
-                <option value="content">내용</option>
+                <option value="title">ID</option>
+                <option value="writer">NAME</option>
             </select>
             <input type="text" name="keyword" class="search-input" placeholder="Search mission...">
             <button type="submit" class="btn-search">검색</button>
@@ -199,28 +198,32 @@
         <thead>
             <tr>
                 <th width="10%">No</th>
-                <th width="50%">Title</th>
-                <th width="15%">Writer</th>
-                <th width="25%">Date</th>
+                <th width="20%">ID</th>
+                <th width="20%">PW</th>
+                <th width="20%">NAME</th>
+                <th width="10%">COIN</th>
+                <th width="20%">DATE</th>
             </tr>
         </thead>
         <tbody>
             <c:choose>
-                <c:when test="${not empty boardList}">
-                    <c:forEach var="board" items="${boardList}">
+                <c:when test="${not empty memberList}">
+                    <c:forEach var="member" items="${memberList}">
                         <tr>
-                            <td>${board.no}</td>
+                            <td>${member.no}</td>
                             <td class="title-cell">
-                                <a href="/board/detail?no=${board.no}">${board.title}</a>
+                                <a href="/member/detail?no=${member.no}">${member.id}</a>
                             </td>
-                            <td>${board.writer}</td>
-                            <td><fmt:formatDate value="${board.regDate}" pattern="yyyy.MM.dd" /></td>
+                            <td>${member.pw}</td>
+                            <td>${member.name}</td>
+                            <td>${member.coin}</td>
+                            <td><fmt:formatDate value="${member.regDate}" pattern="yyyy.MM.dd" /></td>
                         </tr>
                     </c:forEach>
                 </c:when>
                 <c:otherwise>
                     <tr>
-                        <td colspan="4" style="padding: 50px; color: #555;">작성된 게시글이 없습니다.</td>
+                        <td colspan="6" style="padding: 50px; color: #555;">가입된 회원이 없습니다.</td>
                     </tr>
                 </c:otherwise>
             </c:choose>
