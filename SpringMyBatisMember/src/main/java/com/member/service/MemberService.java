@@ -1,11 +1,11 @@
-package com.member.mapper;
+package com.member.service;
 
 import java.util.List;
 
 import com.member.domain.Member;
 import com.member.domain.MemberAuth;
 
-public interface MemberMapper {
+public interface MemberService {
 	//가입 (회원가입 및 회원 권한 설정)
 	public int create(Member member) throws Exception;
 	public int createAuth(MemberAuth memberAuth) throws Exception;
@@ -16,5 +16,4 @@ public interface MemberMapper {
 	public int update(Member member) throws Exception;
 	public int delete(Member member) throws Exception;
 	public int deleteAuth(Member member) throws Exception;
-
 }
