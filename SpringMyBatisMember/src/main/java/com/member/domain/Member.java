@@ -18,4 +18,8 @@ public class Member {
 	
 	private List<MemberAuth> authList;
 	
+	//검색어를 받기위한 변수선언
+	private String searchType;
+	private String keyword;
+	
 }

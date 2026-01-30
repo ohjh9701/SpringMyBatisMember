@@ -15,4 +15,6 @@ public interface MemberService {
 	
 	//삭제 -> 동시에 삭제 (회원 및 회원 권한)
 	public int delete(Member member) throws Exception;
+
+	public List<Member> search(Member member) throws Exception;
 }

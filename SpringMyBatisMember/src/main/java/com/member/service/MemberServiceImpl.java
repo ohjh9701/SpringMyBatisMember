@@ -63,7 +63,13 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	@Transactional
 	public int delete(Member member) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return mapper.delete(member);
+	}
+
+	@Override
+	public List<Member> search(Member member) throws Exception {
+		List<Member> memberList = mapper.search(member);
+		
+		return memberList;
 	}
 }
